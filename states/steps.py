@@ -1,5 +1,6 @@
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
+
 class Steps(StatesGroup):
     age = State()
     calls = State()

@@ -1,16 +1,4 @@
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
-
-
-s = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-          KeyboardButton(text='📄Підбор тарифного плану📄')
-        ]
-    ],
-    resize_keyboard=True,
-    one_time_keyboard=True
-)
-
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 age = InlineKeyboardMarkup(
     inline_keyboard=[
