@@ -1,5 +1,6 @@
 from aiogram import executor
-from loader import dp
+from GAME_OF_TEENS.handlers.users.tariff import choose
+from loader import dp, bot
 from GAME_OF_TEENS.utils.misc.admins_notify import on_startup_notify
 from GAME_OF_TEENS.utils.misc.commands import set_default_commands
 
