@@ -2,7 +2,7 @@ from aiogram import executor, types
 from aiogram.dispatcher.filters import CommandStart
 
 from GAME_OF_TEENS.keyboards.reply.reply_keyboard import select
-from GAME_OF_TEENS.keyboards.inline.inline_keyboards import categories as cat, calls as c
+from GAME_OF_TEENS.keyboards.inline.inline_keyboards import categories as cat, calls as c, internet as i, sms as s, social_pass as p, social_platform as plat
 from loader import dp, bot
 from GAME_OF_TEENS.utils.misc.admins_notify import on_startup_notify
 from GAME_OF_TEENS.utils.misc.commands import set_default_commands
@@ -30,10 +30,10 @@ async def start(message: types.Message):
         new_user = Database(id=message.chat.id)
         session.add(new_user)
         session.commit()
-    await Steps.select.set()
+    await Steps.selection.set()
 
 
-@dp.message_handler(text="Підбор тарифного плану📄", state=Steps.select)
+@dp.message_handler(text="Підбор тарифного плану📄", state=Steps.selection)
 async def selection(message: types.Message):
     await bot.send_message(message.from_user.id, 'Для кого ви обираєете тариф?', reply_markup=cat)
     await Steps.categories.set()
@@ -49,12 +49,18 @@ async def categories(callback: types.callback_query):
 
 @dp.callback_query_handler(state=Steps.calls)
 async def calls(callback: types.callback_query):
+    existing_user = session.query(Database).filter_by(id=callback.from_user.id).first()
     if callback.data == '>1000':
-        existing_user = session.query(Database).filter_by(id=callback.from_user.id).first()
         existing_user.update_info(calls='>1000')
-        session.commit()
-    await bot.send_message(callback.from_user.id, 'Яка кількість інтернету вам підходить?', reply_markup=internet)
+    if callback.data == '<1000':
+        existing_user.update_info(calls='<1000')
+    if callback.data == '<2000':
+        existing_user.update_info(calls='<2000')
+    if callback.data == 'calls_no_limits':
+        existing_user.update_info(calls='calls_no_limits')
+    session.commit()
     await Steps.internet.set()
+    await bot.send_message(callback.from_user.id, 'Оберіть потрібну кількість мобільного інтернету(GB):', reply_markup=i)
 
 
 @dp.callback_query_handler(state=Steps.internet)
@@ -66,9 +72,46 @@ async def internet(callback: types.callback_query):
         existing_user.update_info(internet='<10')
     if callback.data == '<25':
         existing_user.update_info(internet='<25')
+    if callback.data == 'internet_no_limits':
+        existing_user.update_info(internet='internet_no_limits')
     session.commit()
+    await Steps.sms.set()
+    await bot.send_message(callback.from_user.id, 'Оберіть потрібну кількість SMS:', reply_markup=s)
 
 
+@dp.callback_query_handler(state=Steps.sms)
+async def sms(callback: types.callback_query):
+    existing_user = session.query(Database).filter_by(id=callback.from_user.id).first()
+    if callback.data == '>1':
+        existing_user.update_info('>1')
+    elif callback.data == '<25':
+        existing_user.update_info(sms='<25')
+    if callback.data == '>25':
+        existing_user.update_info(sms='>25')
+    session.commit()
+    await Steps.social_pass.set()
+    await bot.send_message(callback.from_user.id, 'Чи потрібен вам необмежений доступ до соціальних мереж (Facebook, istagram, twitter, viber, telegram, skype, whatsapp ) ?', reply_markup=p)
+
+@dp.callback_query_handler(state=Steps.social_pass)
+async def social_pass(callback: types.callback_query):
+    existing_user = session.query(Database).filter_by(id=callback.from_user.id).first()
+    if callback.data == 'Так':
+        existing_user.update_info(social_pass='pass_True')
+    elif callback.data == 'Ні':
+        existing_user.update_info(social_pass='pass_False')
+    session.commit()
+    await Steps.social_platforms.set()
+    await bot.send_message(callback.from_user.id, 'Чи потрібен вам необмежений доступ до освітніх платформ (Google classroom, teams, zoom, ) ?', reply_markup=plat)
+
+
+@dp.callback_query_handler(state=Steps.social_platforms)
+async def social_platform(callback: types.callback_query):
+    existing_user = session.query(Database).filter_by(id=callback.from_user.id).first()
+    if callback.data == 'Так':
+        existing_user.update_info(social_pass='platform_True')
+    elif callback.data == 'Ні':
+        existing_user.update_info(social_pass='platform_False')
+    session.commit()
 
 
 if __name__ == '__main__':
