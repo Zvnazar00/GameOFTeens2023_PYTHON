@@ -13,7 +13,7 @@ session = Session()
 
 class Database(Base):
     __tablename__ = 'lifecell_bot'
-    id = Column(BigInteger, primary_key=True)
+    user_id = Column(BigInteger, primary_key=True)
     calls = Column(String, nullable=True)
     internet = Column(String, nullable=True)
     sms = Column(String, nullable=True)
@@ -21,10 +21,10 @@ class Database(Base):
     social_platform = Column(Boolean, nullable=True)
     categories = Column(String, nullable=True)
 
-    def update_info(self, id=None, calls=None, internet=None,
+    def update_info(self, user_id=None, calls=None, internet=None,
                     sms=None, social_pass=None, social_platform=None, categories=None):
-        if id:
-            self.id = id
+        if user_id:
+            self.user_id = user_id
         if calls:
             self.calls = calls
         if internet:
@@ -40,12 +40,6 @@ class Database(Base):
 
 
 if __name__ == '__main__':
-    print('start')
-    Base.metadata.create_all(db)
     select = select(Database)
-    print(select)
     users = session.query(Database).all()
-    for user in users:
-        print(user.social_platform, user.social_pass)
 
-    print('finish')

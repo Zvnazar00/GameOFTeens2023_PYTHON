@@ -70,3 +70,23 @@ social_platform = InlineKeyboardMarkup(
     ]
 )
 
+
+handmade_but = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text='Створити свій тариф',
+                                 url=r'https://www.lifecell.ua/uk/mobilnij-zvyazok/taryfy/handmade/')
+        ]
+    ]
+)
+
+
+def create_but(url):
+    detail = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text='Детальніше', url=f'{url}')
+            ]
+        ]
+    )
+    return detail

@@ -3,7 +3,7 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 select = ReplyKeyboardMarkup(
     keyboard=[
         [
-          KeyboardButton(text='Підбор тарифного плану📄')
+          KeyboardButton(text='Підбір тарифного плану📄')
         ]
     ],
     resize_keyboard=True,
