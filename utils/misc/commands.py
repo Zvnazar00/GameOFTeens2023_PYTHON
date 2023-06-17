@@ -6,5 +6,10 @@ async def set_default_commands(dispatcher):
         [
             types.BotCommand("start", "Запустити бота"),
             types.BotCommand("help", "Вивести команду"),
+            types.BotCommand("students", "Тарифи із знижкою для студентів"),
+            types.BotCommand("family", "Тарифи для сім'ї"),
+            types.BotCommand("gadgets", "Тарифи для гаджетів"),
+            types.BotCommand("child", "Тарифи для дітей"),
+            types.BotCommand("website", "Перехід до сайту"),
         ]
     )

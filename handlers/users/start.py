@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart
 
-from GAME_OF_TEENS.keyboards.reply.reply_keyboard import s
+#from GAME_OF_TEENS.keyboards.reply.reply_keyboard import s
 from GAME_OF_TEENS.loader import dp, db, bot
 from aiogram.types import ContentTypes
 from GAME_OF_TEENS.states.steps import Steps

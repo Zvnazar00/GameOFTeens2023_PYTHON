@@ -4,10 +4,6 @@ categories = InlineKeyboardMarkup(
     inline_keyboard=[
         [
             InlineKeyboardButton(text="Сім'я", callback_data='family'),
-            InlineKeyboardButton(text='Студент', callback_data='student')
-        ],
-        [
-            InlineKeyboardButton(text='Дитина', callback_data='child'),
             InlineKeyboardButton(text='Гаджети', callback_data='gadgets')
         ],
         [
@@ -19,11 +15,11 @@ categories = InlineKeyboardMarkup(
 calls = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text=">1000хв", callback_data='>1000'),
-            InlineKeyboardButton(text='<1000хв', callback_data='<1000')
+            InlineKeyboardButton(text="Від 300хв", callback_data='300'),
+            InlineKeyboardButton(text='Від 1000хв', callback_data='1000')
         ],
         [
-            InlineKeyboardButton(text='<2000хв', callback_data='<2000'),
+            InlineKeyboardButton(text='Від 2000хв', callback_data='2000'),
             InlineKeyboardButton(text='Безліміт', callback_data='calls_no_limits')
         ],
     ]
@@ -32,11 +28,11 @@ calls = InlineKeyboardMarkup(
 internet = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text=">10ГБ", callback_data='>10'),
-            InlineKeyboardButton(text='<10ГБ', callback_data='<10')
+            InlineKeyboardButton(text="Від 1ГБ", callback_data='1'),
+            InlineKeyboardButton(text='Від 10ГБ', callback_data='10')
         ],
         [
-            InlineKeyboardButton(text='<25ГБ', callback_data='<25'),
+            InlineKeyboardButton(text='Від 25ГБ', callback_data='25'),
             InlineKeyboardButton(text='Безліміт', callback_data='internet_no_limits')
         ],
     ]
@@ -46,11 +42,11 @@ internet = InlineKeyboardMarkup(
 sms = InlineKeyboardMarkup(
     inline_keyboard=[
         [
-            InlineKeyboardButton(text=">1 SMS", callback_data='>1'),
-            InlineKeyboardButton(text='<25 SMS', callback_data='<25')
+            InlineKeyboardButton(text="Без SMS", callback_data='0'),
+            InlineKeyboardButton(text='Від 20 SMS', callback_data='20')
         ],
         [
-            InlineKeyboardButton(text='>25 SMS', callback_data='>25'),
+            InlineKeyboardButton(text='Від 25 SMS', callback_data='25'),
         ],
     ]
 )
