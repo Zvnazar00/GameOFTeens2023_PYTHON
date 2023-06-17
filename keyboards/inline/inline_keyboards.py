@@ -28,3 +28,17 @@ calls = InlineKeyboardMarkup(
         ],
     ]
 )
+
+
+internet = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text=">10ГБ", callback_data='>10'),
+            InlineKeyboardButton(text='<10ГБ', callback_data='<10')
+        ],
+        [
+            InlineKeyboardButton(text='<25ГБ', callback_data='<25ГБ'),
+            InlineKeyboardButton(text='Безліміт', callback_data='no_limits')
+        ],
+    ]
+)

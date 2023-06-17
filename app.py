@@ -53,7 +53,21 @@ async def calls(callback: types.callback_query):
         existing_user = session.query(Database).filter_by(id=callback.from_user.id).first()
         existing_user.update_info(calls='>1000')
         session.commit()
-        await bot.send_message(callback.from_user.id, '1')
+    await bot.send_message(callback.from_user.id, 'Яка кількість інтернету вам підходить?', reply_markup=internet)
+    await Steps.internet.set()
+
+
+@dp.callback_query_handler(state=Steps.internet)
+async def internet(callback: types.callback_query):
+    existing_user = session.query(Database).filter_by(id=callback.from_user.id).first()
+    if callback.data == '>10':
+        existing_user.update_info(internet='>10')
+    elif callback.data == '<10':
+        existing_user.update_info(internet='<10')
+    if callback.data == '<25':
+        existing_user.update_info(internet='<25')
+    session.commit()
+
 
 
 
